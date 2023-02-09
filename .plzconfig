@@ -1,14 +1,8 @@
-[Plugin "python"]
-ModuleDir = third_party.python
-WheelRepo = https://get.please.build/third_party/python/py3
-Target = //:python
-
 [FeatureFlags]
 ExcludeProtoRules = true
-ExcludePythonRules = true
 
 [PluginDefinition]
-name = proto
+Name = proto
 
 [PluginConfig "definitions"]
 Help = A subinclude target containing a build definition that register a new languages using proto_language()
@@ -28,7 +22,7 @@ Optional = true
 
 [PluginConfig "languages"]
 ConfigKey = Language
-Description = Languages to use with the legacy proto rules
+Help = Languages to use with the legacy proto rules
 Repeatable = true
 DefaultValue = cc
 DefaultValue = go

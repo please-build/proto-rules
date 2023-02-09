@@ -321,7 +321,7 @@ def grpc_languages():
                 compiler_flags = ['-I$PKG_DIR', '-Wno-unused-parameter'],  # Generated gRPC code is not robust to this.
             ),
             protoc_flags = ['--cpp_out="$OUT_DIR"', '--plugin=protoc-gen-grpc-cc="`which $TOOLS_CC`"', '--grpc-cc_out="$OUT_DIR"'],
-            tools = [CONFIG.PTOTO.GRPC_CC_PLUGIN],
+            tools = [CONFIG.PROTO.GRPC_CC_PLUGIN],
             provides=['hdrs'],
         ),
         'py': proto_language(
@@ -329,8 +329,8 @@ def grpc_languages():
             proto_language = 'python',
             func = python_library,
             protoc_flags = ['--python_out="$OUT_DIR"', '--plugin=protoc-gen-grpc-python="`which $TOOLS_PY`"', '--grpc-python_out="$OUT_DIR"'],
-            tools = [CONFIG.PTOTO.GRPC_PYTHON_PLUGIN],
-            deps = [CONFIG.PROTO.PYTHON_DEP, CONFIG.PTOTO.GRPC_PYTHON_DEP],
+            tools = [CONFIG.PROTO.GRPC_PYTHON_PLUGIN],
+            deps = [CONFIG.PROTO.PYTHON_DEP, CONFIG.PROTO.PYTHON_GRPC_DEP],
         ),
         'java': proto_language(
             language = 'java',
@@ -343,8 +343,8 @@ def grpc_languages():
                 labels = ['proto'],
             ),
             protoc_flags = ['--java_out="$OUT_DIR"', '--plugin=protoc-gen-grpc-java="`which $TOOLS_JAVA`"', '--grpc-java_out="$OUT_DIR"'],
-            tools = [CONFIG.PTOTO.GRPC_JAVA_PLUGIN],
-            deps = [CONFIG.PTOTO.GRPC_JAVA_DEP, CONFIG.PROTO.JAVA_DEP],
+            tools = [CONFIG.PROTO.GRPC_JAVA_PLUGIN],
+            deps = [CONFIG.PROTO.JAVA_GRPC_DEP, CONFIG.PROTO.JAVA_DEP],
         ),
         'go': proto_language(
             language = 'go',
@@ -362,19 +362,19 @@ def grpc_languages():
                 '--plugin=protoc-gen-go-grpc="`which $TOOLS_GRPC_GO`"',
                 '--go_opt=paths=source_relative',
                 '--go-grpc_opt=paths=source_relative',
-            ] if CONFIG.PTOTO.GRPC_GO_PLUGIN else [
+            ] if CONFIG.PROTO.GRPC_GO_PLUGIN else [
                 '--go_out="$OUT_DIR"',
                 '--plugin=protoc-gen-go="`which $TOOLS_GO`"',
                 '--go_opt=paths=source_relative',
             ],
             tools = {
-                'go': [CONFIG.PTOTO.PROTOC_GO_PLUGIN],
-                'grpc_go': [CONFIG.PTOTO.GRPC_GO_PLUGIN],
-            } if CONFIG.PTOTO.GRPC_GO_PLUGIN else [
-                CONFIG.PTOTO.PROTOC_GO_PLUGIN,
+                'go': [CONFIG.PROTO.PROTOC_GO_PLUGIN],
+                'grpc_go': [CONFIG.PROTO.GRPC_GO_PLUGIN],
+            } if CONFIG.PROTO.GRPC_GO_PLUGIN else [
+                CONFIG.PROTO.PROTOC_GO_PLUGIN,
             ],
-            deps = [CONFIG.PROTO.GO_DEP, CONFIG.PTOTO.GRPC_GO_DEP],
-            pre_build = None if CONFIG.PTOTO.GRPC_GO_PLUGIN else _go_path_mapping(True),
+            deps = [CONFIG.PROTO.GO_DEP, CONFIG.PROTO.GO_GRPC_DEP],
+            pre_build = None if CONFIG.PROTO.GRPC_GO_PLUGIN else _go_path_mapping(True),
             # if we're using the old unified protoc plugin, tell it to generate grpc
             provides=['srcs'],
         ),
@@ -396,7 +396,7 @@ def grpc_languages():
 
 
 def _protoc_rule(name, srcs, deps, language, plugin, protoc_flags, root_dir, pre_build, labels, test_only, visibility):
-    tools = {'protoc': [CONFIG.PTOTO.PROTOC_TOOL]}
+    tools = {'protoc': [CONFIG.PROTO.PROTOC_TOOL]}
     plugin_tools = plugin['tools']
     if isinstance(plugin_tools, dict):
         for tool_name, tool in plugin_tools.items():
@@ -404,7 +404,7 @@ def _protoc_rule(name, srcs, deps, language, plugin, protoc_flags, root_dir, pre
     else:
         tools[language] = plugin_tools
 
-    flags = [' '.join(plugin['protoc_flags'])] + CONFIG.PTOTO.PROTOC_FLAGS
+    flags = [' '.join(plugin['protoc_flags'])] + CONFIG.PROTO.PROTOC_FLAGS
 
     out_dir = "out_dir"
     language_out_dir = plugin['language']

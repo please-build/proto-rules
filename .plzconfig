@@ -1,7 +1,3 @@
-[Plugin "proto"]
-LanguageDef = //build_defs/languages:js
-LanguageDef = //build_defs/languages:py
-
 [Plugin "python"]
 ModuleDir = third_party.python
 WheelRepo = https://get.please.build/third_party/python/py3
@@ -15,29 +11,78 @@ ExcludePythonRules = true
 name = proto
 
 [PluginConfig "definitions"]
+Help = A subinclude target containing a build definition that register a new languages using proto_language()
 ConfigKey = LanguageDef
 Repeatable = true
 Inherit = true
+Optional = true
 
 [PluginConfig "protoc_tool"]
-ConfigKey = ProtocTool
+Help = The protoc tool, as either a binary in the PATH or a build label
 DefaultValue = protoc
 
 [PluginConfig "protoc_flags"]
-ConfigKey = ProtocFlag
+Help = Any additional flags to pass to protoc
 Repeatable = true
 Optional = true
 
+[PluginConfig "languages"]
+Description = Languages to use with the legacy proto rules
+Repeatable = true
+DefaultValue = cc
+DefaultValue = go
+DefaultValue = java
+DefaultValue = py
+DefaultValue = js
 
-; Python
 [PluginConfig "python_grpc_plugin"]
-ConfigKey = PythonGrpcPlugin
+Help = The Python plugin for protoc
 DefaultValue = grpc_python_plugin
 
+[PluginConfig "protoc_go_plugin"]
+Help = The protoc plugin for Golang
+DefaultValue = protoc-gen-go
+
+[PluginConfig "grpc_go_plugin"]
+Help = The protoc plugin for Golang gRPC services
+Optional = true
+
+[PluginConfig "grpc_cc_plugin"]
+Help = The protoc plugin for C/C++
+DefaultValue = grpc_cpp_plugin
+
+[PluginConfig "grpc_python_plugin"]
+Help = The Python gRPC protoc plugin
+DefaultValue = grpc_python_plugin
+
+[PluginConfig "grpc_java_plugin"]
+Help = The Java gRPC protoc plugin
+DefaultValue = protoc-gen-grpc-java
+
 [PluginConfig "python_dep"]
-ConfigKey = PythonDep
+Help = The Python protobuf library
 DefaultValue = //third_party/python:protobuf
 
+[PluginConfig "java_dep"]
+Help = The Java protobuf library
+DefaultValue = //third_party/java:protobuf
+
+[PluginConfig "go_dep"]
+Help = The Go protobuf library
+DefaultValue = //third_party/go:protobuf
+
 [PluginConfig "python_grpc_dep"]
-ConfigKey = PythonGrpcDep
+Help = The Python gRPC library
 DefaultValue = //third_party/python:grpc
+
+[PluginConfig "java_grpc_dep"]
+Help = The Java gRPC library
+DefaultValue = //third_party/java:grpc-all
+
+[PluginConfig "go_grpc_dep"]
+Help = The Go gRPC library
+DefaultValue = //third_party/go:grpc
+
+[PluginConfig "js_dep"]
+Help = The Javascript protobuf library
+Optional = true

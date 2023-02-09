@@ -1,5 +1,16 @@
 [FeatureFlags]
 ExcludeProtoRules = true
+ExcludeGoRules = true
+
+[Plugin "proto"]
+Target = //plugins:proto
+protoctool = //third_party/proto:protoc
+protocgoplugin = //third_party/go:protoc-gen-go
+language = go
+
+[Plugin "go"]
+Target = //plugins:go
+ImportPath = github.com/please-build/proto-rules
 
 [PluginDefinition]
 Name = proto

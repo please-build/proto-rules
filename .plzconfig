@@ -27,6 +27,7 @@ Repeatable = true
 Optional = true
 
 [PluginConfig "languages"]
+ConfigKey = Language
 Description = Languages to use with the legacy proto rules
 Repeatable = true
 DefaultValue = cc

@@ -10,7 +10,14 @@ can also be a mapping of language name -> definition of how to build it. The def
 should be the return value of proto_language.
 """
 
-subinclude("///go//build_defs:go", "///python//build_defs:python", "///java//build_defs:java", "///cc//build-defs:cc")
+if "go" in CONFIG.PROTO.LANGUAGES:
+    subinclude("///go//build_defs:go")
+if "py" in CONFIG.PROTO.LANGUAGES:
+    subinclude("///python//build_defs:python")
+if "java" in CONFIG.PROTO.LANGUAGES:
+    subinclude("///java//build_defs:java")
+if "cc" in CONFIG.PROTO.LANGUAGES:
+    subinclude("///cc//build-defs:cc")
 
 _DEFAULT_GRPC_LABELS = ['grpc']
 

@@ -2,10 +2,31 @@
 Protobuf rules for the [Please](https://please.build) build system.
 
 # Legacy rules
-These rules are a big paradigm shift from the built in rules from Please v16. To help with the transition, 
+These rules are a big paradigm shift from the built-in rules from Please v16. To help with the transition, 
 `///proto//build_defs:legacy` are a drop-in replacement for the old behavior. These will work throughout the 
-v17 branch. To use these, add the proto plugin to your repo, and subinclude that target. These use the legacy 
-config i.e. `[Proto]`, not `[Plugin "proto"]`.
+v17 branch. You will have to subinclude the build definitions for your language as well:
+
+```python
+subinclude("///proto//build_defs:proto", "///go//build_defs:go")
+
+proto_library(
+    name = "proto",
+    srcs = ["proto.proto"],
+    languages = ["go"],
+)
+
+```
+
+To configure these, you will need to add this base plugin via a `plugin_repo()` as described below. These use the legacy 
+`[Proto]` section for configuration, so you should add the following to your  `.plzconfig`:
+```
+[Plugin "proto"]
+Target = //plugins:proto
+
+[Proto]
+; Any existing proto config you may have
+...
+```
 
 # Basic usage 
 First add the base proto plugin to your project:

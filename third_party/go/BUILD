@@ -11,6 +11,15 @@ go_module(
     deps = [":protobuf-go"],
 )
 
+go_module(
+    name = "protoc-gen-go-grpc",
+    binary = True,
+    module = "google.golang.org/grpc/cmd/protoc-gen-go-grpc",
+    version = "v1.1.0",
+    visibility = ["PUBLIC"],
+    deps = [":protobuf-go"],
+)
+
 go_mod_download(
     name = "protobuf_download",
     licences = ["BSD-3-Clause"],
@@ -54,6 +63,7 @@ go_module(
     install = [
         "cmp/...",
     ],
+    visibility = ["PUBLIC"],
     module = "github.com/google/go-cmp",
     version = "b1c9c4891a6525d98001fea424c8926c6d77bb56",
 )

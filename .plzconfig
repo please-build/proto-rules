@@ -2,8 +2,7 @@
 ExcludeProtoRules = true
 ExcludeGoRules = true
 
-[Plugin "proto"]
-Target = //plugins:proto
+[proto]
 protoctool = //third_party/proto:protoc
 protocgoplugin = //third_party/go:protoc-gen-go
 language = go
@@ -29,66 +28,4 @@ DefaultValue = protoc
 [PluginConfig "protoc_flags"]
 Help = Any additional flags to pass to protoc
 Repeatable = true
-Optional = true
-
-[PluginConfig "languages"]
-ConfigKey = Language
-Help = Languages to use with the legacy proto rules
-Repeatable = true
-DefaultValue = cc
-DefaultValue = go
-DefaultValue = java
-DefaultValue = py
-DefaultValue = js
-
-[PluginConfig "python_grpc_plugin"]
-Help = The Python plugin for protoc
-DefaultValue = grpc_python_plugin
-
-[PluginConfig "protoc_go_plugin"]
-Help = The protoc plugin for Golang
-DefaultValue = protoc-gen-go
-
-[PluginConfig "grpc_go_plugin"]
-Help = The protoc plugin for Golang gRPC services
-Optional = true
-
-[PluginConfig "grpc_cc_plugin"]
-Help = The protoc plugin for C/C++
-DefaultValue = grpc_cpp_plugin
-
-[PluginConfig "grpc_python_plugin"]
-Help = The Python gRPC protoc plugin
-DefaultValue = grpc_python_plugin
-
-[PluginConfig "grpc_java_plugin"]
-Help = The Java gRPC protoc plugin
-DefaultValue = protoc-gen-grpc-java
-
-[PluginConfig "python_dep"]
-Help = The Python protobuf library
-DefaultValue = @//third_party/python:protobuf
-
-[PluginConfig "java_dep"]
-Help = The Java protobuf library
-DefaultValue = @//third_party/java:protobuf
-
-[PluginConfig "go_dep"]
-Help = The Go protobuf library
-DefaultValue = @//third_party/go:protobuf
-
-[PluginConfig "python_grpc_dep"]
-Help = The Python gRPC library
-DefaultValue = @//third_party/python:grpc
-
-[PluginConfig "java_grpc_dep"]
-Help = The Java gRPC library
-DefaultValue = @//third_party/java:grpc-all
-
-[PluginConfig "go_grpc_dep"]
-Help = The Go gRPC library
-DefaultValue = @//third_party/go:grpc
-
-[PluginConfig "js_dep"]
-Help = The Javascript protobuf library
 Optional = true

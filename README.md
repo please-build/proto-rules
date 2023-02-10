@@ -1,6 +1,12 @@
 # Proto rules
 Protobuf rules for the [Please](https://please.build) build system.
 
+# Legacy rules
+These rules are a big paradigm shift from the built in rules from Please v16. To help with the transition, 
+`///proto//build_defs:legacy` are a drop-in replacement for the old behavior. These will work throughout the 
+v17 branch. To use these, add the proto plugin to your repo, and subinclude that target. These use the legacy 
+config i.e. `[Proto]`, not `[Plugin "proto"]`.
+
 # Basic usage 
 First add the base proto plugin to your project:
 ```python

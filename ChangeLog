@@ -2,6 +2,12 @@ Version 0.3.0
 -------------
     * Add the old legacy rules to help each the migration to the new rules.
 
+
+Version 0.2.1
+-------------
+    * Make the subincludes absolute
+
+
 Version 0.2.0
 -------------
     * Language protos build_defs should know what language they are for so

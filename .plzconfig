@@ -1,7 +1,3 @@
-[FeatureFlags]
-ExcludeProtoRules = true
-ExcludeGoRules = true
-
 [proto]
 protoctool = //third_party/proto:protoc
 protocgoplugin = //third_party/go:protoc-gen-go
@@ -29,3 +25,9 @@ DefaultValue = protoc
 Help = Any additional flags to pass to protoc
 Repeatable = true
 Optional = true
+
+[parse]
+preloadsubincludes = ///python//build_defs:python
+
+[Plugin "python"]
+Target = //plugins:python

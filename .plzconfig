@@ -21,7 +21,7 @@ Target = //plugins:python
 Name = proto
 
 [PluginConfig "definitions"]
-Help = A subinclude target containing a build definition that register a new languages using proto_language()
+Help = A subinclude target containing a build definition that registers a new language using proto_language()
 ConfigKey = LanguageDef
 Repeatable = true
 Inherit = true
